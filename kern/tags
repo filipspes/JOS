@@ -1,0 +1,31 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+boot_alloc	pmap.c	/^boot_alloc(uint32_t n)$/;"	f	file:
+boot_map_region	pmap.c	/^boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm)$/;"	f	file:
+check_kern_pgdir	pmap.c	/^check_kern_pgdir(void)$/;"	f	file:
+check_page	pmap.c	/^check_page(void)$/;"	f	file:
+check_page_alloc	pmap.c	/^check_page_alloc(void)$/;"	f	file:
+check_page_free_list	pmap.c	/^check_page_free_list(bool only_low_memory)$/;"	f	file:
+check_page_installed_pgdir	pmap.c	/^check_page_installed_pgdir(void)$/;"	f	file:
+check_va2pa	pmap.c	/^check_va2pa(pde_t *pgdir, uintptr_t va)$/;"	f	file:
+i386_detect_memory	pmap.c	/^i386_detect_memory(void)$/;"	f	file:
+kern_pgdir	pmap.c	/^pde_t *kern_pgdir;		\/\/ Kernel's initial page directory$/;"	v
+mem_init	pmap.c	/^mem_init(void)$/;"	f
+npages	pmap.c	/^size_t npages;			\/\/ Amount of physical memory (in pages)$/;"	v
+npages_basemem	pmap.c	/^static size_t npages_basemem;	\/\/ Amount of base memory (in pages)$/;"	v	file:
+nvram_read	pmap.c	/^nvram_read(int r)$/;"	f	file:
+page_alloc	pmap.c	/^page_alloc(int alloc_flags)$/;"	f
+page_decref	pmap.c	/^page_decref(struct PageInfo* pp)$/;"	f
+page_free	pmap.c	/^page_free(struct PageInfo *pp)$/;"	f
+page_free_list	pmap.c	/^static struct PageInfo *page_free_list;	\/\/ Free list of physical pages$/;"	v	typeref:struct:PageInfo	file:
+page_init	pmap.c	/^page_init(void)$/;"	f
+page_insert	pmap.c	/^page_insert(pde_t *pgdir, struct PageInfo *pp, void *va, int perm)$/;"	f
+page_lookup	pmap.c	/^page_lookup(pde_t *pgdir, void *va, pte_t **pte_store)$/;"	f
+page_remove	pmap.c	/^page_remove(pde_t *pgdir, void *va)$/;"	f
+pages	pmap.c	/^struct PageInfo *pages;		\/\/ Physical page state array$/;"	v	typeref:struct:PageInfo
+pgdir_walk	pmap.c	/^pgdir_walk(pde_t *pgdir, const void *va, int create)$/;"	f
+tlb_invalidate	pmap.c	/^tlb_invalidate(pde_t *pgdir, void *va)$/;"	f
