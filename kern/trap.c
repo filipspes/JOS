@@ -227,7 +227,7 @@ trap(struct Trapframe *tf)
 	// Dispatch based on what type of trap occurred
 	trap_dispatch(tf);
 
-	// Return to the current environment, which should be running.
+
 	assert(curenv && curenv->env_status == ENV_RUNNING);
 	env_run(curenv);
 }
