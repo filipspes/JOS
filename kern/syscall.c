@@ -39,7 +39,7 @@ sys_cgetc(void)
 	return cons_getc();
 }
 
-// Returns the current environment's envid.
+
 static envid_t
 sys_getenvid(void)
 {

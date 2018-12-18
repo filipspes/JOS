@@ -690,8 +690,7 @@ user_mem_check(struct Env *env, const void *va, size_t len, int perm)
 	return 0;
 }
 
-//
-// Checks that environment 'env' is allowed to access the range
+
 // of memory [va, va+len) with permissions 'perm | PTE_U | PTE_P'.
 // If it can, then the function simply returns.
 // If it cannot, 'env' is destroyed and, if env is the current
