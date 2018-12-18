@@ -263,7 +263,7 @@ env_alloc(struct Env **newenv_store, envid_t parent_id)
 
 	// Enable interrupts while in user mode.
 	// LAB 4: Your code here.
-
+	e->env_tf.tf_eflags |= FL_IF; 
 	// Clear the page fault handler until user installs one.
 	e->env_pgfault_upcall = 0;
 
@@ -376,7 +376,7 @@ load_icode(struct Env *e, uint8_t *binary)
 		if(ph->p_memsz > ph->p_filesz)
 			memset((void *)ph->p_va+ph->p_filesz,'\0',ph->p_memsz - ph->p_filesz);
 			//memcpy((void *)ph->p_va,binary + ph->p_offset, ph->p_filesz);
-		cprintf("ph->p_type: %x  ph->p_va: %x ph->p_filesz: %x \n", ph->p_type, ph->p_va, ph->p_filesz);
+		//cprintf("ph->p_type: %x  ph->p_va: %x ph->p_filesz: %x \n", ph->p_type, ph->p_va, ph->p_filesz);
 		
 	}
 	

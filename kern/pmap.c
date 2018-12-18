@@ -326,7 +326,7 @@ mem_init_mp(void)
 //
 void
 page_init(void)
-{
+	{
 	// LAB 4:
 	// Change your code to mark the physical page at MPENTRY_PADDR
 	// as in use
@@ -348,7 +348,7 @@ page_init(void)
 	// Change the code to reflect this.
 	// NB: DO NOT actually touch the physical memory corresponding to
 	// free pages!
-	
+	//cprintf("MPENTRY_PADDR: %x ,MPENTRY_PADDR/PGSIZE: %x, PGNUM(MPENTRY_ADDR): %x\n", MPENTRY_PADDR, MPENTRY_PADDR/PGSIZE, PGNUM(MPENTRY_PADDR));
 	page_free_list = NULL;
 	size_t i;
 	for (i = 0; i < npages; i++) {
@@ -674,7 +674,7 @@ int
 user_mem_check(struct Env *env, const void *va, size_t len, int perm)
 {
 	// LAB 3: Your code here.
-	cprintf("user_mem_check va: %x, len: %x\n", va, len);
+	//cprintf("user_mem_check va: %x, len: %x\n", va, len);
 	uint32_t begin = (uint32_t) ROUNDDOWN(va, PGSIZE); 
 	uint32_t end = (uint32_t) ROUNDUP(va+len, PGSIZE);
 	uint32_t i;
@@ -686,7 +686,7 @@ user_mem_check(struct Env *env, const void *va, size_t len, int perm)
 			return -E_FAULT;
 		}
 	}
-	cprintf("user_mem_check success va: %x, len: %x\n", va, len);
+//	cprintf("user_mem_check success va: %x, len: %x\n", va, len);
 	return 0;
 }
 

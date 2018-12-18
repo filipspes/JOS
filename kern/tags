@@ -4,28 +4,20 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-boot_alloc	pmap.c	/^boot_alloc(uint32_t n)$/;"	f	file:
-boot_map_region	pmap.c	/^boot_map_region(pde_t *pgdir, uintptr_t va, size_t size, physaddr_t pa, int perm)$/;"	f	file:
-check_kern_pgdir	pmap.c	/^check_kern_pgdir(void)$/;"	f	file:
-check_page	pmap.c	/^check_page(void)$/;"	f	file:
-check_page_alloc	pmap.c	/^check_page_alloc(void)$/;"	f	file:
-check_page_free_list	pmap.c	/^check_page_free_list(bool only_low_memory)$/;"	f	file:
-check_page_installed_pgdir	pmap.c	/^check_page_installed_pgdir(void)$/;"	f	file:
-check_va2pa	pmap.c	/^check_va2pa(pde_t *pgdir, uintptr_t va)$/;"	f	file:
-i386_detect_memory	pmap.c	/^i386_detect_memory(void)$/;"	f	file:
-kern_pgdir	pmap.c	/^pde_t *kern_pgdir;		\/\/ Kernel's initial page directory$/;"	v
-mem_init	pmap.c	/^mem_init(void)$/;"	f
-npages	pmap.c	/^size_t npages;			\/\/ Amount of physical memory (in pages)$/;"	v
-npages_basemem	pmap.c	/^static size_t npages_basemem;	\/\/ Amount of base memory (in pages)$/;"	v	file:
-nvram_read	pmap.c	/^nvram_read(int r)$/;"	f	file:
-page_alloc	pmap.c	/^page_alloc(int alloc_flags)$/;"	f
-page_decref	pmap.c	/^page_decref(struct PageInfo* pp)$/;"	f
-page_free	pmap.c	/^page_free(struct PageInfo *pp)$/;"	f
-page_free_list	pmap.c	/^static struct PageInfo *page_free_list;	\/\/ Free list of physical pages$/;"	v	typeref:struct:PageInfo	file:
-page_init	pmap.c	/^page_init(void)$/;"	f
-page_insert	pmap.c	/^page_insert(pde_t *pgdir, struct PageInfo *pp, void *va, int perm)$/;"	f
-page_lookup	pmap.c	/^page_lookup(pde_t *pgdir, void *va, pte_t **pte_store)$/;"	f
-page_remove	pmap.c	/^page_remove(pde_t *pgdir, void *va)$/;"	f
-pages	pmap.c	/^struct PageInfo *pages;		\/\/ Physical page state array$/;"	v	typeref:struct:PageInfo
-pgdir_walk	pmap.c	/^pgdir_walk(pde_t *pgdir, const void *va, int create)$/;"	f
-tlb_invalidate	pmap.c	/^tlb_invalidate(pde_t *pgdir, void *va)$/;"	f
+ENVGENSHIFT	env.c	22;"	d	file:
+env_alloc	env.c	/^env_alloc(struct Env **newenv_store, envid_t parent_id)$/;"	f
+env_create	env.c	/^env_create(uint8_t *binary, enum EnvType type)$/;"	f
+env_destroy	env.c	/^env_destroy(struct Env *e)$/;"	f
+env_free	env.c	/^env_free(struct Env *e)$/;"	f
+env_free_list	env.c	/^static struct Env *env_free_list;	\/\/ Free environment list$/;"	v	typeref:struct:Env	file:
+env_init	env.c	/^env_init(void)$/;"	f
+env_init_percpu	env.c	/^env_init_percpu(void)$/;"	f
+env_pop_tf	env.c	/^env_pop_tf(struct Trapframe *tf)$/;"	f
+env_run	env.c	/^env_run(struct Env *e)$/;"	f
+env_setup_vm	env.c	/^env_setup_vm(struct Env *e)$/;"	f	file:
+envid2env	env.c	/^envid2env(envid_t envid, struct Env **env_store, bool checkperm)$/;"	f
+envs	env.c	/^struct Env *envs = NULL;		\/\/ All environments$/;"	v	typeref:struct:Env
+gdt	env.c	/^struct Segdesc gdt[NCPU + 5] =$/;"	v	typeref:struct:Segdesc
+gdt_pd	env.c	/^struct Pseudodesc gdt_pd = {$/;"	v	typeref:struct:Pseudodesc
+load_icode	env.c	/^load_icode(struct Env *e, uint8_t *binary)$/;"	f	file:
+region_alloc	env.c	/^region_alloc(struct Env *e, void *va, size_t len)$/;"	f	file:

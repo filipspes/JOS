@@ -4,3 +4,15 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+idt	kern/trap.c	/^struct Gatedesc idt[256] = { { 0 } };$/;"	v	typeref:struct:Gatedesc
+idt_pd	kern/trap.c	/^struct Pseudodesc idt_pd = {$/;"	v	typeref:struct:Pseudodesc
+last_tf	kern/trap.c	/^static struct Trapframe *last_tf;$/;"	v	typeref:struct:Trapframe	file:
+page_fault_handler	kern/trap.c	/^page_fault_handler(struct Trapframe *tf)$/;"	f
+print_regs	kern/trap.c	/^print_regs(struct PushRegs *regs)$/;"	f
+print_trapframe	kern/trap.c	/^print_trapframe(struct Trapframe *tf)$/;"	f
+trap	kern/trap.c	/^trap(struct Trapframe *tf)$/;"	f
+trap_dispatch	kern/trap.c	/^trap_dispatch(struct Trapframe *tf)$/;"	f	file:
+trap_init	kern/trap.c	/^trap_init(void)$/;"	f
+trap_init_percpu	kern/trap.c	/^trap_init_percpu(void)$/;"	f
+trapname	kern/trap.c	/^static const char *trapname(int trapno)$/;"	f	file:
+ts	kern/trap.c	/^static struct Taskstate ts;$/;"	v	typeref:struct:Taskstate	file:

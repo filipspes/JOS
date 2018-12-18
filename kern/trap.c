@@ -91,8 +91,10 @@ trap_init(void)
 	extern void TH_ALIGN(); 	SETGATE(idt[T_ALIGN], 0, GD_KT, TH_ALIGN, 0); 
 	extern void TH_MCHK(); 		SETGATE(idt[T_MCHK], 0, GD_KT, TH_MCHK, 0); 
 	extern void TH_SIMDERR(); 	SETGATE(idt[T_SIMDERR], 0, GD_KT, TH_SIMDERR, 0); 
-	extern void TH_SYSCALL(); 	SETGATE(idt[T_SYSCALL], 1, GD_KT, TH_SYSCALL, 3); 
-
+	extern void TH_SYSCALL(); 	SETGATE(idt[T_SYSCALL], 0, GD_KT, TH_SYSCALL, 3); 
+	
+	extern void TH_IRQ_TIMER();     SETGATE(idt[IRQ_OFFSET+IRQ_TIMER],0,GD_KT,TH_IRQ_TIMER,0);
+	extern void TH_IRQ_SPURIOUS();  SETGATE(idt[IRQ_OFFSET+IRQ_SPURIOUS],0,GD_KT,TH_IRQ_SPURIOUS,0); 
 	// Per-CPU setup 
 	trap_init_percpu();
 }
@@ -196,12 +198,12 @@ trap_dispatch(struct Trapframe *tf)
 	// Handle processor exceptions.
 	// LAB 3: Your code here.
 	if(tf->tf_trapno == T_PGFLT){
-                cprintf("PAGE FAULT\n");
+ //               cprintf("PAGE FAULT\n");
                 page_fault_handler(tf);
                 return;
         }
         if(tf->tf_trapno == T_BRKPT){
-                cprintf("BREAKPOINT\n");
+   //             cprintf("BREAKPOINT\n");
                 monitor(tf);
                 return;
         }
@@ -229,7 +231,12 @@ trap_dispatch(struct Trapframe *tf)
 	// Handle clock interrupts. Don't forget to acknowledge the
 	// interrupt using lapic_eoi() before calling the scheduler!
 	// LAB 4: Your code here
-
+	if(tf->tf_trapno == IRQ_OFFSET + IRQ_TIMER){
+	//	cprintf("TImer\n");
+		lapic_eoi();
+		sched_yield();
+		return;
+	}
 	// Unexpected trap: The user process or the kernel has a bug.
 	print_trapframe(tf);
 	if (tf->tf_cs == GD_KT)
@@ -260,6 +267,7 @@ trap(struct Trapframe *tf)
 	// Check that interrupts are disabled.  If this assertion
 	// fails, DO NOT be tempted to fix it by inserting a "cli" in
 	// the interrupt path.
+	//cprintf("read_eflags() : %d FL_IF %d\n", read_eflags(), FL_IF);
 	assert(!(read_eflags() & FL_IF));
 
 	if ((tf->tf_cs & 3) == 3) {
@@ -310,7 +318,7 @@ page_fault_handler(struct Trapframe *tf)
 	fault_va = rcr2();
 
 	// Handle kernel-mode page faults.
-
+	//cprintf("Trapframe %p ", tf);
 	// LAB 3: Your code here.
 	if((tf->tf_cs & 3) == 0)
 		panic("Kernel page fault");
@@ -347,7 +355,29 @@ page_fault_handler(struct Trapframe *tf)
 	//   (the 'tf' variable points at 'curenv->env_tf').
 
 	// LAB 4: Your code here.
-
+	if (curenv->env_pgfault_upcall)
+	{
+		uintptr_t cur_uxstacktop;
+		if (tf->tf_esp >= UXSTACKTOP - PGSIZE && tf->tf_esp < UXSTACKTOP)
+		{
+			cur_uxstacktop = tf->tf_esp - 4;
+		}
+		else
+		{
+			cur_uxstacktop = UXSTACKTOP;
+		}
+		struct UTrapframe *utf = (struct UTrapframe *)(cur_uxstacktop - (sizeof(struct UTrapframe)));
+		user_mem_assert(curenv, utf, (sizeof(struct UTrapframe)), PTE_U | PTE_W);
+		utf->utf_fault_va = fault_va;
+		utf->utf_err = tf->tf_err;
+		utf->utf_regs = tf->tf_regs;
+		utf->utf_eip = tf->tf_eip;
+		utf->utf_eflags = tf->tf_eflags;
+		utf->utf_esp = tf->tf_esp;
+		tf->tf_esp = (uintptr_t)utf;
+		tf->tf_eip = (uintptr_t)curenv->env_pgfault_upcall;
+		env_run(curenv);
+}
 	// Destroy the environment that caused the fault.
 	cprintf("[%08x] user fault va %08x ip %08x\n",
 		curenv->env_id, fault_va, tf->tf_eip);
