@@ -34,8 +34,7 @@ i386_detect_memory(void)
 {
 	size_t basemem, extmem, ext16mem, totalmem;
 
-	// Use CMOS calls to measure available base & extended memory.
-	// (CMOS calls return results in kilobytes.)
+
 	basemem = nvram_read(NVRAM_BASELO);
 	extmem = nvram_read(NVRAM_EXTLO);
 	ext16mem = nvram_read(NVRAM_EXT16LO) * 64;

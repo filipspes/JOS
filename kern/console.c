@@ -32,7 +32,7 @@ delay(void)
 #define COM_IER		1	// Out: Interrupt Enable Register
 #define   COM_IER_RDI	0x01	//   Enable receiver data interrupt
 #define COM_IIR		2	// In:	Interrupt ID Register
-#define COM_FCR		2	// Out: FIFO Control Register
+#define COM_FCR		2	// 
 #define COM_LCR		3	// Out: Line Control Register
 #define	  COM_LCR_DLAB	0x80	//   Divisor latch access bit
 #define	  COM_LCR_WLEN8	0x03	//   Wordlength: 8 bits
