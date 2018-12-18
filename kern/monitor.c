@@ -11,7 +11,7 @@
 #include <kern/monitor.h>
 #include <kern/kdebug.h>
 
-#define CMDBUF_SIZE	80	// enough for one VGA text line
+#define CMDBUF_SIZE	80
 
 
 struct Command {
@@ -126,7 +126,6 @@ runcmd(char *buf, struct Trapframe *tf)
 	}
 	argv[argc] = 0;
 
-	// Lookup and invoke the command
 	if (argc == 0)
 		return 0;
 	for (i = 0; i < ARRAY_SIZE(commands); i++) {
